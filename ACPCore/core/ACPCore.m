@@ -20,7 +20,6 @@ governing permissions and limitations under the License.
 
 #pragma mark - ACPCore Implementation
 
-static NSMutableArray *_pendingExtensions;
 
 @implementation ACPCore
 
@@ -80,19 +79,6 @@ static NSMutableArray *_pendingExtensions;
 
 #pragma mark - Extensions
 
-+ (void) registerExtensions: (NSArray* __nullable) extensions callback:(nullable void (^) (void)) callback {
-    NSMutableArray *cleanedExtensions = [NSMutableArray arrayWithArray:_pendingExtensions];
-    for (id extensionClass in extensions) {
-        Class wrappedExtension = [self wrapExtensionClassIfNeeded:extensionClass];
-        if (wrappedExtension) {
-            [cleanedExtensions addObject:wrappedExtension];
-        }
-    }
-    
-    [AEPMobileCore registerExtensions:cleanedExtensions completion:callback];
-    [_pendingExtensions removeAllObjects];
-}
-
 + (BOOL) registerExtension: (nonnull Class) extensionClass
                      error: (NSError* _Nullable* _Nullable) error {
     // If registering a legacy 3rd party extension, we need to create a wrapper extension
@@ -100,19 +86,14 @@ static NSMutableArray *_pendingExtensions;
     if (!extensionClass) {
         return nil;
     }
-    
-    if (!_pendingExtensions) {
-        _pendingExtensions = [NSMutableArray array];
-    }
-    
-    [_pendingExtensions addObject:extensionClass];
+    [AEPMobileCore registerExtension:extensionClass completion:^{
+    }];
     
     return YES;
 }
 
 + (void) start: (nullable void (^) (void)) callback {
-    [AEPMobileCore registerExtensions:_pendingExtensions completion:^{
-        [_pendingExtensions removeAllObjects];
+    [AEPMobileCore registerExtensions:@[] completion:^{
         callback();
     }];
 }
