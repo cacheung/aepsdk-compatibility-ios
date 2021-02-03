@@ -19,5 +19,5 @@ Pod::Spec.new do |s|
   s.dependency 'AEPServices'
   s.dependency 'AEPIdentity'
   s.dependency 'ACPCore'
-  s.dependency 'AEPAnalytics'
+  s.dependency 'AEPAnalytics', :git => 'https://github.com/adobe/aepsdk-analytics-ios', :branch => 'main'
 end
