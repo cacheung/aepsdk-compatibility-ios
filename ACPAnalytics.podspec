@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = "ACPAnalytics"
   s.version          = "2.9.9"
-  s.summary          = "ACPAnaltyics"
+  s.summary          = "ACPAnalytics"
   s.description      = <<-DESC
   ACPAnalytics backward compatible layer
                         DESC
