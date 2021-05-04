@@ -65,7 +65,7 @@ target 'ACPMedia' do
   pod 'AEPServices'
   pod 'AEPCore'
   pod 'AEPIdentity'
-  pod 'AEPMedia', :git => 'git@github.com:adobe/aepsdk-media-ios.git', :branch => 'dev'
+  pod 'AEPMedia', :git => 'git@github.com:adobe/aepsdk-media-ios.git', :branch => 'main'
 end
 
 target 'ACPTarget' do
